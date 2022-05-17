@@ -35,6 +35,12 @@ function checksTodoExists(request, response, next) {
     return response.status(404).json({ error: "Username not found!" })
   }
 
+  const isAValidID = validate(id)
+
+  if (!isAValidID) {
+    return response.status(400).json({ error: 'Invalid ID' })
+  }
+
   const todo = user.todos.find(todo => todo.id === id)
 
   if (!todo) {
