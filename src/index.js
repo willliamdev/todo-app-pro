@@ -22,7 +22,18 @@ function checksExistsUserAccount(request, response, next) {
 }
 
 function checksCreateTodosUserAvailability(request, response, next) {
-  // Complete aqui
+  const { user } = request
+
+  const hasPro = user.pro
+
+  if (hasPro) {
+    return next()
+  } else if (user.todos.length < 10) {
+    return next()
+  } else {
+    return response.status(403)
+  }
+
 }
 
 function checksTodoExists(request, response, next) {
